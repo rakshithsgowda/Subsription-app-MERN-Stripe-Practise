@@ -1,14 +1,31 @@
 import { useState } from 'react'
+import { toast } from 'react-hot-toast'
+import axios from 'axios'
+
 import Button from '../components/Button'
 import Input from '../components/Input'
 
 const Register = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [name, setName] = useState('india')
+  const [email, setEmail] = useState('india@india.india')
+  const [password, setPassword] = useState('india')
 
-  const handleClick = async () => {
-    await console.log(name, email, password)
+  const handleClick = async (e) => {
+    // await console.log(name, email, password)
+    // our end point will start with something like "http://localhost:8000/api/v1".
+    try {
+      e.preventDefault()
+      const { data } = await axios.post('/register', {
+        name,
+        email,
+        password,
+      })
+      console.log(data)
+      toast.success('Registration successful. Please login')
+    } catch (error) {
+      console.log('error')
+      toast.error('something went wrong this time')
+    }
   }
 
   return (
