@@ -2,8 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
-import { readFileSync } from 'fs'
-const dotenv = require('dotenv').config()
+import { readdirSync } from 'fs'
+require('dotenv').config()
 
 const port = process.env.PORT || 8000
 
@@ -29,10 +29,11 @@ app.use(
     origin: [process.env.CLIENT_URL],
   })
 )
+
 // autoroutes
-app.get('/api/register', (req, res) => {
-  res.send(`this is a from the api of subscription app`)
-})
+readdirSync('./routes').map((eachfile) =>
+  app.use('/api', require(`./routes/${eachfile}`))
+)
 
 // listen
 app.listen(port, () => {
