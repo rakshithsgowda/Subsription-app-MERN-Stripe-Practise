@@ -15,12 +15,19 @@ const Register = () => {
     // our end point will start with something like "http://localhost:8000/api/v1".
     try {
       e.preventDefault()
-      const { data } = await axios.post('/register', {
-        name,
-        email,
-        password,
-      })
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_PORT_FOR_BACKEND_CALL}/register`,
+        {
+          name,
+          email,
+          password,
+        }
+      )
       console.log(data)
+      if (data.error) {
+        return toast.error(data.error)
+      }
+
       toast.success('Registration successful. Please login')
     } catch (error) {
       console.log('error')

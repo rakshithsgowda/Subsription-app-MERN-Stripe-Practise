@@ -4,6 +4,10 @@
 
 ###
 # @name Register
-GET  {{baseUrl}}/register HTTP/1.1
+POST   {{baseUrl}}/register HTTP/1.1
 Content-Type: {{contentType}}
 
+{
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+}
